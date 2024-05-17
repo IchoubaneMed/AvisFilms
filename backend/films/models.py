@@ -16,5 +16,5 @@ class Movie(models.Model):
         return self.title
     
 class Review(models.Model):
-    grad = models.FloatField()
+    grade = models.FloatField()
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="review")
