@@ -8,7 +8,7 @@ from .tasks import simulate_processing
 class MovieListView(generics.ListAPIView):
     serializer_class = MovieSerializer
     def get_queryset(self):
-        return Movie.objects.all().annotate(average=Avg("review__grade")).order_by('-id')
+        return Movie.objects.all().annotate(average=Avg("review__grade")).order_by('id')
 
 class MovieDetailView(generics.RetrieveUpdateAPIView):
     queryset = Movie.objects.all().annotate(average=Avg("review__grade"))
