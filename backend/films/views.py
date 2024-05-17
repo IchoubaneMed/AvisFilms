@@ -21,7 +21,8 @@ class ReviewCreateView(generics.CreateAPIView):
     def perform_create(self, serializer):
         movie_id = self.request.data['movie'] 
         movie = Movie.objects.get(id=movie_id)
-        serializer.save(movie=movie)
         # Appeler la tâche Celery pour simuler le traitement pendant 10 secondes
         simulate_processing.delay(movie_id)
+        serializer.save(movie=movie)
+        
     
