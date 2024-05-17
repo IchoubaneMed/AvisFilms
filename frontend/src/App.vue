@@ -1,3 +1,8 @@
+<script setup>
+import MovieList from './components/MovieList.vue';
+</script>
+
+
 <template>
-  hello mohamed, super
+  <MovieList />
 </template>
