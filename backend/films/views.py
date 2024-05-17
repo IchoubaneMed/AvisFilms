@@ -1,10 +1,8 @@
-from django.shortcuts import render
 from django.db.models import Avg
-from rest_framework import generics, viewsets
+from rest_framework import generics
 from .models import Movie, Review
 from .serializers import MovieSerializer, ReviewSerializer
-from rest_framework.response import Response
-
+from .tasks import simulate_processing
 # Create your views here.
 
 class MovieListView(generics.ListAPIView):
@@ -24,5 +22,6 @@ class ReviewCreateView(generics.CreateAPIView):
         movie_id = self.request.data['movie'] 
         movie = Movie.objects.get(id=movie_id)
         serializer.save(movie=movie)
-
+        # Appeler la tâche Celery pour simuler le traitement pendant 10 secondes
+        simulate_processing.delay(movie_id)
     
