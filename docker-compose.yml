@@ -11,11 +11,29 @@ services:
       - 8000:8000
     depends_on:
       - db
+      - redis
   db:
     image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+  celery:
+    build: ./backend 
+    command: celery -A django_project worker -l INFO
+    volumes:
+      - ./backend:/code
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
 volumes:
   postgres_data:
