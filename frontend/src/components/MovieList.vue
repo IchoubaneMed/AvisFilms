@@ -3,6 +3,8 @@
     import axios from 'axios';
     import { RouterLink } from 'vue-router';
 
+    
+
     const movies = ref([]);
     const pagination = ref({});
     const fetchMovies = async (url = 'http://localhost:8000/api/v1/movies/') => {
@@ -32,7 +34,7 @@
         <h1>Movies</h1>
         <ul class="movie-list">
             <li v-for="movie in movies" :key="movie.id" class="movie-item">
-                <RouterLink :to="`/movies/${movie.id}`" class="movie-link">{{ movie.title }}</RouterLink>
+                <router-link :to="{ name: 'MovieDetail', params: { id: movie.id } }" class="movie-link">{{ movie.title }}</router-link>
             </li>
         </ul>
         <button @click="prevPage" :disabled="!pagination.previous" class="pagination-button">Previous</button>

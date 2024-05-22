@@ -9,13 +9,13 @@ const router = createRouter({
             path: '/',
             name: 'MovieList',
             component: MovieList
-        },
-        {
+          },
+          {
             path: '/movies/:id',
             name: 'MovieDetail',
             component: MovieDetail,
             props: true
-        }
+          }
     ]
 });
 
