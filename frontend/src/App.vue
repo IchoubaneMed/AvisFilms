@@ -4,5 +4,5 @@ import MovieList from './components/MovieList.vue';
 
 
 <template>
-  <MovieList />
+  <router-view></router-view>
 </template>
