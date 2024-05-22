@@ -1,9 +1,13 @@
 from django.db.models import Avg
 from rest_framework import generics
-from .models import Movie, Review
-from .serializers import MovieSerializer, ReviewSerializer
+from .models import Movie, Review, Actor
+from .serializers import MovieSerializer, ReviewSerializer, ActorSerializer
 from .tasks import simulate_processing
 # Create your views here.
+
+class ActorListView(generics.ListAPIView):
+    queryset = Actor.objects.all()
+    serializer_class = ActorSerializer
 
 class MovieListView(generics.ListAPIView):
     serializer_class = MovieSerializer
